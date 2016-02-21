@@ -4,19 +4,19 @@ all: congatec_cgoslib congatec_cgosdrv i2c_driver i2c_terminal_report fcgi_daemo
 
 
 i2c_driver:
-	$(MAKE) -C i2c_driver
+	$(MAKE) -j 4 -C i2c_driver
 
 fcgi_daemon:
-	$(MAKE) -C fcgi_daemon
+	$(MAKE) -j 4 -C fcgi_daemon
 
 i2c_terminal_report:
-	$(MAKE) -C i2c_terminal_report
+	$(MAKE) -j 4 -C i2c_terminal_report
 
 congatec_cgosdrv:
-	$(MAKE) -C congatec_cgosdrv/Lx
+	$(MAKE) -j 4 -C congatec_cgosdrv/Lx
 
 congatec_cgoslib:
-	$(MAKE) -C congatec_cgoslib/Lx
+	$(MAKE) -j 4 -C congatec_cgoslib/Lx
 
 
 pull:
