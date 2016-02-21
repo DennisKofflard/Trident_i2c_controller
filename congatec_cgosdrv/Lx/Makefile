@@ -24,8 +24,8 @@ mkcmd = $(shell if [ "$(patchlevel)" == 6 && "$(sublevel)" -lt 16 ]; then echo $
 
 ifdef KERNELRELEASE
 
-	EXTRA_CFLAGS += -I$(obj)/. -I$(obj)/.. -I$(obj)/../../CgosLib
-	EXTRA_CFLAGS += -I$(obj)/../../CgosLib/Lx
+	EXTRA_CFLAGS += -I$(obj)/. -I$(obj)/.. -I$(obj)/../../congatec_cgoslib
+	EXTRA_CFLAGS += -I$(obj)/../../congatec_cgoslib/Lx
 #	EXTRA_CFLAGS += -O2 -mcmodel=kernel -DAMD64 -fno-strict-aliasing
 #	EXTRA_CFLAGS += -O2 -DAMD64 -fno-strict-aliasing
 	EXTRA_CFLAGS += -O2 -fno-strict-aliasing
@@ -40,7 +40,7 @@ else
 
 	DEF = -DUNIX -D__KERNEL__ -Dlinux -DMODULE
 	EXTRA_CFLAGS = $(DEF) -O2 -Wall -Wl,-r -nostdlib
-	EXTRA_CFLAGS += -I. -I.. -I../.. -I$(KERNELDIR)/include -I../../CgosLib
+	EXTRA_CFLAGS += -I. -I.. -I../.. -I$(KERNELDIR)/include -I../../congatec_cgoslib
 #	EXTRA_CFLAGS += -mcmodel=kernel -DAMD64 -fno-strict-aliasing
 #	EXTRA_CFLAGS += -DAMD64 -fno-strict-aliasing
 	EXTRA_CFLAGS += -fno-strict-aliasing
