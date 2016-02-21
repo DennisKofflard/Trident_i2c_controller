@@ -69,7 +69,7 @@ int fcgi_request_dispatch(FCGX_Request *request, char *url) {
 		return fcgi_request_das_dispatch(request, url);
 
 	} else if (fcgi_request_strcmp(url, "all")) {
-		fprintf(stderr, "Dispatching to das\n");
+		fprintf(stderr, "Dispatching to all\n");
 		return fcgi_request_all_dispatch(request, url);
 
 	} else if (fcgi_request_strcmp(url, "banaan")) {

@@ -29,7 +29,9 @@
 
 
 int fcgi_request_all_dispatch(FCGX_Request *request, char *url) {
-	if (fcgi_request_strcmp(url, "debug")) {
+	FCGI_NEXT_PARAM();
+
+	if (fcgi_request_strcmp(url, "dump")) {
 		//logging:
 		fprintf(stderr, "Dispatching to /all/dump\n");
 		return fcgi_request_all_dump(request);
