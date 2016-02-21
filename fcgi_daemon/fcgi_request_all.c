@@ -20,7 +20,7 @@
 #include "fcgi_helper.h"
 #include "macros.h"
 
-//#include "fcgi_request.h"
+#include "fcgi_request.h"
 //#include "fcgi_request_debug.h"
 //#include "fcgi_request_das.h"
 #include "fcgi_request_all.h"
