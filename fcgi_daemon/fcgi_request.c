@@ -23,6 +23,7 @@
 #include "fcgi_request.h"
 #include "fcgi_request_debug.h"
 #include "fcgi_request_das.h"
+#include "fcgi_request_all.h"
 
 
 
@@ -64,7 +65,12 @@ int fcgi_request_dispatch(FCGX_Request *request, char *url) {
 		return fcgi_request_debug_dispatch(request, url);
 
 	} else if (fcgi_request_strcmp(url, "das")) {
+		fprintf(stderr, "Dispatching to das\n");
 		return fcgi_request_das_dispatch(request, url);
+
+	} else if (fcgi_request_strcmp(url, "all")) {
+		fprintf(stderr, "Dispatching to das\n");
+		return fcgi_request_all_dispatch(request, url);
 
 	} else if (fcgi_request_strcmp(url, "banaan")) {
 		printf("banaan!\n");
