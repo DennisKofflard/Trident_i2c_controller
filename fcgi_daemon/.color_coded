@@ -1,0 +1,6 @@
+-x
+c
+-I../../cgoslib
+-I../i2c_driver
+-Wall
+-Werror

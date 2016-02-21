@@ -1,0 +1,23 @@
+/**
+\mainpage This is the documentation for the i2c driver for the trident 1 and trident 2 optical TOR switches
+
+
+
+\section introduction Introduction
+This driver is used for interfacing with all the chips in the trident 1 and trident 2 over i2c, this allows very fine control over all the sub devices in the trident switches.
+
+A few key features:
+  - Monitoring and controlling the voltages.
+    - Allowing power savings
+    - Allowing ressetting the BCM switch core without an external power cycle.
+  - Detecting the presence of and controlling connected CXP's and TRANSCEIVER's
+    - Allows loss of signal monitoring
+    - Allows enabling and disabling the output laser
+
+@todo Implementing transceiver code.
+
+
+\section return_values Return values
+All functions return 0 for succes or -1 for failure.
+*/
+
