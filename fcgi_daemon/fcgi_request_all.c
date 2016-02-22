@@ -77,7 +77,7 @@ int fcgi_request_all_general(FCGX_Request *request) {
 
 
 
-int fcgi_request_all_transceiver(FCGX_Request *request, i2c_dev* dev) {
+int fcgi_request_all_transceiver(i2c_dev* dev, FCGX_Request *request) {
 	assert(dev->type == transceiver);
 	i2c_transceiver_data *data = ((i2c_transceiver_data*) dev->data);
 
