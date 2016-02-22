@@ -986,7 +986,7 @@ int i2c_transceiver_report_voltage(i2c_dev *dev) {
 	i2c_transceiver_data *data = ((i2c_transceiver_data*) dev->data);
 
 	printf("    transceiver voltages: TX: %4d.%01d mV, RX: %4d.%01d mV\n",
-					  (data->voltage.RX) / 10, (data->voltage.RX) % 10,
+					  (data->voltage.TX) / 10, (data->voltage.TX) % 10,
 					  (data->voltage.RX) / 10, (data->voltage.RX) % 10);
 
 	return 0;
