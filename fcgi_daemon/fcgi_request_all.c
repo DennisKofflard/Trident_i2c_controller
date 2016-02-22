@@ -54,6 +54,11 @@ int fcgi_request_all_dump(FCGX_Request *request) {
 
 	printf("{\n");
 		DO_AND_CHECK(fcgi_request_all_general(request));
+
+		printf("transceivers: {\n");
+			DO_AND_CHECK(fcgi_i2c_devices_call_on_type(transceiver, request, fcgi_request_all_transceiver))
+		printf("}\n");
+		
 	printf("\n}");
 
 	return 0;
