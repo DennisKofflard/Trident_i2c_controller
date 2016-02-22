@@ -10,7 +10,7 @@ A few key features:
   - Monitoring and controlling the voltages.
     - Allowing power savings
     - Allowing ressetting the BCM switch core without an external power cycle.
-  - Detecting the presence of and controlling connected CXP's and transceivers
+  - Detecting the presence of and controlling connected CXP's and compatible transceivers
     - Allows loss of signal monitoring
     - Allows enabling and disabling the output laser
 
