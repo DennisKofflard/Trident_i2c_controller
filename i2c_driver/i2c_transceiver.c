@@ -11,7 +11,7 @@
  * Driver for the transceivers.
  *
  * This driver has two modes, TX mode and RX mode, and continuously switches between them internally.
- * This is done because the TRANSCEIVER has two i2c device addresses, one for TX and one for RX, and this driver need to communicate with both sub modules.
+ * This is done because the transceiver has two i2c device addresses, one for TX and one for RX, and this driver need to communicate with both sub modules.
  *
  * Also works for CXP's as the driver is build from the generic InfiniBand Annex A6 eeprom map specification
  */
