@@ -14,7 +14,6 @@ A few key features:
     - Allows loss of signal monitoring
     - Allows enabling and disabling the output laser
 
-@todo Implementing transceiver code.
 
 
 \section return_values Return values
