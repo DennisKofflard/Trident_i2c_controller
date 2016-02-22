@@ -16,6 +16,7 @@
 #include <string.h>
 
 #include "i2c_devices.h"
+#include "i2c_transceiver.h"
 
 #include "fcgi_helper.h"
 #include "macros.h"
