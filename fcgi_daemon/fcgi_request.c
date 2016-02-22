@@ -61,15 +61,15 @@ int fcgi_request(FCGX_Request *request) {
 int fcgi_request_dispatch(FCGX_Request *request, char *url) {
 	if (fcgi_request_strcmp(url, "debug")) {
 		//logging:
-		fprintf(stderr, "Dispatching to debug\n");
+		fprintf(stderr, "Dispatching to /debug\n");
 		return fcgi_request_debug_dispatch(request, url);
 
 	} else if (fcgi_request_strcmp(url, "das")) {
-		fprintf(stderr, "Dispatching to das\n");
+		fprintf(stderr, "Dispatching to /das\n");
 		return fcgi_request_das_dispatch(request, url);
 
 	} else if (fcgi_request_strcmp(url, "all")) {
-		fprintf(stderr, "Dispatching to all\n");
+		fprintf(stderr, "Dispatching to /all\n");
 		return fcgi_request_all_dispatch(request, url);
 
 	} else if (fcgi_request_strcmp(url, "banaan")) {
@@ -143,6 +143,27 @@ int fcgi_request_next_part(char **url) {
 
 
 
+
+
+
+
+/**
+ * Calls a function on all devices of a single type
+ *
+ * @param[in] type Type of the devices to call the function on
+ * @param[in] func Function to call on the devices
+ */
+int fcgi_i2c_devices_call_on_type(FCGX_Request *request, i2c_dev_type type, int (*func)(i2c_dev*)) {
+	int i = 0;
+	i2c_dev *dev;
+
+	while (!(i2c_devices_dev_get(&dev, type, i))) {
+		DO_AND_CHECK((*func)(dev));
+		i++;
+	}
+
+	return 0;
+}
 
 
 

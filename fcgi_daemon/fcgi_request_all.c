@@ -45,7 +45,42 @@ int fcgi_request_all_dispatch(FCGX_Request *request, char *url) {
 
 
 int fcgi_request_all_dump(FCGX_Request *request) {
-	printf("/all/dump here.\n");
+	//printf("/all/dump here.\n");
+
+	printf("{\n");
+		DO_AND_CHECK(fcgi_request_all_general(request));
+	printf("\n}");
 
 	return 0;
 }
+
+
+
+int fcgi_request_all_general(FCGX_Request *request) {
+	//more information could be printed here like:
+	// trident version
+	// device counts by type.
+
+	printf("\"debug\": true");
+
+	return 0;
+}
+
+
+
+int fcgi_request_all_transceiver(FCGX_Request *request, i2c_dev* dev) {
+	assert(dev->type == transceiver);
+	i2c_transceiver_data *data = ((i2c_transceiver_data*) dev->data);
+
+	printf("    transceiver voltages: TX: %4d.%01d mV, RX: %4d.%01d mV\n",
+					  (data->voltage.TX) / 10, (data->voltage.TX) % 10,
+					  (data->voltage.RX) / 10, (data->voltage.RX) % 10);
+
+
+	return 0;
+}
+
+
+
+
+
