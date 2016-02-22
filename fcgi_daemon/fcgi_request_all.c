@@ -53,10 +53,11 @@ int fcgi_request_all_dump(FCGX_Request *request) {
 
 	printf("{\n");
 		DO_AND_CHECK(fcgi_request_all_general(request));
+		printf(",\n");
 
-		printf("transceivers: {\n");
+		printf("transceivers: [\n");
 			DO_AND_CHECK(fcgi_i2c_devices_call_on_type(transceiver, request, fcgi_request_all_transceiver));
-		printf("}\n");
+		printf("\n]");
 		
 	printf("\n}");
 
@@ -81,13 +82,43 @@ int fcgi_request_all_transceiver(i2c_dev* dev, FCGX_Request *request) {
 	assert(dev->type == transceiver);
 	i2c_transceiver_data *data = ((i2c_transceiver_data*) dev->data);
 
-	printf("    transceiver voltages: TX: %4d.%01d mV, RX: %4d.%01d mV\n",
-					  (data->voltage.TX) / 10, (data->voltage.TX) % 10,
-					  (data->voltage.RX) / 10, (data->voltage.RX) % 10);
+	if (data->connected && data->ready) {
+		printf("{\n");
+
+		
+		//printf("    transceiver voltages: TX: %4d.%01d mV, RX: %4d.%01d mV\n",
+		printf("\"VDD33_TX\": %01d.%04d, \"VDD33_RX\": %01d.%04d\n",
+		    			  (data->voltage.TX) / 10000, (data->voltage.TX) % 10000,
+				    	  (data->voltage.RX) / 10000, (data->voltage.RX) % 10000);
+
+		printf("\n}");
+	}
 
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
