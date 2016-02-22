@@ -15,6 +15,7 @@
 int fcgi_request_all_dispatch(FCGX_Request *request, char *url);
 int fcgi_request_all_dump(FCGX_Request *request);
 int fcgi_request_all_general(FCGX_Request *request);
+int fcgi_request_all_transceiver(FCGX_Request *request, i2c_dev* dev);
 
 
 #endif /* FCGI_REQUEST_ALL_H*/
