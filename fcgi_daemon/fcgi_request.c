@@ -147,23 +147,6 @@ int fcgi_request_next_part(char **url) {
 
 
 
-/**
- * Calls a function on all devices of a single type
- *
- * @param[in] type Type of the devices to call the function on
- * @param[in] func Function to call on the devices
- */
-int fcgi_i2c_devices_call_on_type(FCGX_Request *request, i2c_dev_type type, int (*func)(i2c_dev*)) {
-	int i = 0;
-	i2c_dev *dev;
-
-	while (!(i2c_devices_dev_get(&dev, type, i))) {
-		DO_AND_CHECK((*func)(dev));
-		i++;
-	}
-
-	return 0;
-}
 
 
 

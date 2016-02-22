@@ -77,6 +77,12 @@ int fcgi_start() {
 
 
 
+/**
+ * Calls a function on all devices of a single type
+ *
+ * @param[in] type Type of the devices to call the function on
+ * @param[in] func Function to call on the devices
+ */
 int fcgi_i2c_devices_call_on_type(i2c_dev_type type, FCGX_Request *request, int (*func)(i2c_dev*, FCGX_Request *)) {
 	int i = 0;
 	i2c_dev *dev;
