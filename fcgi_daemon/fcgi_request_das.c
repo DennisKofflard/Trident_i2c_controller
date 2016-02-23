@@ -67,7 +67,7 @@ int fcgi_i2c_das_dump_all(FCGX_Request *request) {
 	i2c_dev *dev;
 	int first = 1;
 
-	printf("\"voltages\": [\n");
+	printf("\"voltages\": {\n");
 
 		while (!(i2c_devices_dev_get(&dev, das, idev))) {
 			assert(dev->type == das);
@@ -95,7 +95,7 @@ int fcgi_i2c_das_dump_all(FCGX_Request *request) {
 		printf("\n");
 	}
 
-	printf("]\n");
+	printf("}\n");
 
 	return 0;
 }
