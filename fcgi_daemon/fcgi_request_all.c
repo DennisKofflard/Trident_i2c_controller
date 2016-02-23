@@ -81,7 +81,7 @@ int fcgi_request_all_general(FCGX_Request *request) {
 int fcgi_request_transceivers(FCGX_Request *request) {
 	printf("\"transceivers\": [\n");
 		DO_AND_CHECK(fcgi_i2c_devices_call_on_type(transceiver, request, fcgi_request_transceiver_single));
-		printf("\"filler\": null\n");
+		printf("{\"filler\": null}\n");
 	printf("\n]");
 
 	return 0;
@@ -98,9 +98,11 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 	printf("{\n");
 	
 	printf("\"connected\": %s,\n", (data->connected ? "true" : "false"));
-	printf("\"ready\": %s,\n",     (data->ready     ? "true" : "false"));
+	printf("\"ready\": %s",        (data->ready     ? "true" : "false"));
 
 	if (data->connected && data->ready) {
+		printf(",\n");
+
 		printf("\"Vendor_info\": {\"name\": \"%16s\", \"OUI\": \"%5d\", \"part\": \"%16s\", \"revision\": \"%2s\", \"serial\": \"%16s\"},\n",
 			     data->vendor_info.name,
 			     data->vendor_info.OUI,
