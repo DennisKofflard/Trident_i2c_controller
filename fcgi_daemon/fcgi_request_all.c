@@ -23,6 +23,7 @@
 #include "fcgi.h"
 #include "fcgi_request.h"
 #include "fcgi_request_all.h"
+#include "fcgi_request_das.h"
 
 #include "timestamp.h"
 #include "i2c_transceiver.h"
