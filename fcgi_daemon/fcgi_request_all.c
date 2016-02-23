@@ -103,16 +103,53 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 	if (data->connected && data->ready) {
 		printf(",\n");
 
-		printf("\"Vendor_info\": {\"name\": \"%16s\", \"OUI\": \"%5d\", \"part\": \"%16s\", \"revision\": \"%2s\", \"serial\": \"%16s\"},\n",
+		printf("\"vendor_info\": {"
+						"\"name\": \"%16s\", "
+						"\"OUI\": \"%5d\", "
+						"\"part\": \"%16s\", "
+						"\"revision\": \"%2s\", "
+						"\"serial\": \"%16s\"},\n",
 			     data->vendor_info.name,
 			     data->vendor_info.OUI,
 			     data->vendor_info.part_number,
 			     data->vendor_info.revision,
 				   data->vendor_info.serial);
 
-		
-		printf("\"VDD33_TX\": %01d.%04d,\n", (data->voltage.TX) / 10000, (data->voltage.TX) % 10000);
+		printf("\"voltages\": [");
+		printf("\"VDD33_TX\": %01d.%04d,", (data->voltage.TX) / 10000, (data->voltage.TX) % 10000);
 		printf("\"VDD33_RX\": %01d.%04d",    (data->voltage.RX) / 10000, (data->voltage.RX) % 10000);
+		printf("],\n");
+
+
+
+
+
+
+
+		int16_t temp_c[4];
+		uint16_t temp_mc[4];
+
+		DO_AND_CHECK(i2c_transceiver_temperature_to_c_and_mc(data->temperature.TX1, &(temp_c[0]), &(temp_mc[0])));
+		DO_AND_CHECK(i2c_transceiver_temperature_to_c_and_mc(data->temperature.TX2, &(temp_c[1]), &(temp_mc[1])));
+		DO_AND_CHECK(i2c_transceiver_temperature_to_c_and_mc(data->temperature.RX1, &(temp_c[2]), &(temp_mc[2])));
+		DO_AND_CHECK(i2c_transceiver_temperature_to_c_and_mc(data->temperature.RX2, &(temp_c[3]), &(temp_mc[3])));
+
+		printf("\"temperatures\": ["
+				"\"TX1\": %3d.%03d, "
+				"\"TX2\": %3d.%03d, "
+				"\"RX1\": %3d.%03d, "
+				"\"RX2\": %3d.%03d"
+				"]\n",
+				temp_c[0], temp_mc[0],
+				temp_c[1], temp_mc[1],
+				temp_c[2], temp_mc[2],
+				temp_c[3], temp_mc[3]);
+
+
+
+
+
+
 	}
 
 	printf("\n},");
