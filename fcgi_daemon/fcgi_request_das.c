@@ -62,7 +62,7 @@ int fcgi_das_single_output(i2c_dev* dev, FCGX_Request *request, uint8_t channel)
 
 
 
-int fcgi_i2c_das_dump_all(FCGX_Request *request);
+int fcgi_i2c_das_dump_all(FCGX_Request *request) {
 	int idev = 0;
 	i2c_dev *dev;
 	int first = 1;
