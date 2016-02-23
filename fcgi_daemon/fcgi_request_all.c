@@ -80,7 +80,7 @@ int fcgi_request_all_general(FCGX_Request *request) {
 
 int fcgi_request_transceivers(FCGX_Request *request) {
 	printf("\"transceivers\": [\n");
-		DO_AND_CHECK(fcgi_i2c_devices_call_on_type(transceiver, request, fcgi_request_all_transceiver));
+		DO_AND_CHECK(fcgi_i2c_devices_call_on_type(transceiver, request, fcgi_request_transceiver_single));
 		printf("\"filler\": null\n");
 	printf("\n]");
 
