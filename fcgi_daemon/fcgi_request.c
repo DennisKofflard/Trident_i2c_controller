@@ -10,6 +10,7 @@
 
 
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <fcgiapp.h>
 #include <assert.h>
