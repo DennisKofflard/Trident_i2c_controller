@@ -118,7 +118,10 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 			     data->vendor_info.part_number,
 			     data->vendor_info.revision,
 				   data->vendor_info.serial);
-		
+	
+
+
+
 
 		//voltages
 		printf("\"VDD33_TX\": %01d.%04d,\n", (data->voltage.TX) / 10000, (data->voltage.TX) % 10000);
@@ -142,6 +145,9 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 		printf("\"temp_TX2\": %3d.%03d,\n", temp_c[1], temp_mc[1]);
 		printf("\"temp_RX1\": %3d.%03d,\n", temp_c[2], temp_mc[2]);
 		printf("\"temp_RX2\": %3d.%03d,\n", temp_c[3], temp_mc[3]);
+
+
+
 
 
 
