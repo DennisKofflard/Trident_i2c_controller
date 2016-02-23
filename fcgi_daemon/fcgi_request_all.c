@@ -101,7 +101,7 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 	printf("\"ready\": %s,\n",     (data->ready     ? "true" : "false"));
 
 	if (data->connected && data->ready) {
-		printf("\"Vendor_info\": {\"name\": \"%16s\", \"OUI\": \"%5d\", \"part\": %16s\", \"revision\": \"%2s\", \"serial\": \"%16s\"},\n",
+		printf("\"Vendor_info\": {\"name\": \"%16s\", \"OUI\": \"%5d\", \"part\": \"%16s\", \"revision\": \"%2s\", \"serial\": \"%16s\"},\n",
 			     data->vendor_info.name,
 			     data->vendor_info.OUI,
 			     data->vendor_info.part_number,
@@ -113,6 +113,7 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 		printf("\"VDD33_RX\": %01d.%04d,\n", (data->voltage.RX) / 10000, (data->voltage.RX) % 10000);
 	}
 
+	printf("\"filler\": null\n");
 	printf("\n},");
 
 	return 0;
