@@ -144,6 +144,8 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 
 
 		//channel data
+		printf("channels: [\n");
+
 		int i;
 		for (i = 0; i < I2C_TRANSCEIVER_CHANNEL_COUNT; i++) {
 			if (i != 0) {
@@ -177,7 +179,7 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 							i2c_transceiver_bit_get(
 								data->data_rx.loss_of_signal, i)));
 		}
-
+		printf("\n]\n");
 
 
 	}
