@@ -97,12 +97,14 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 
 	printf("{\n");
 	
-	printf("\"connected\": %s,\n", (data->connected ? "true" : "false"));
-	printf("\"ready\": %s",        (data->ready     ? "true" : "false"));
+	printf("\"connected\": %s,\n", fcgi_request_bit_to_bool(data->connected));
+	printf("\"ready\": %s",        fcgi_request_bit_to_bool(data->ready));
 
 	if (data->connected && data->ready) {
 		printf(",\n");
 
+
+		//vendor info
 		printf("\"vendor_info\": {"
 						"\"name\": \"%16s\", "
 						"\"OUI\": \"%5d\", "
@@ -114,7 +116,9 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 			     data->vendor_info.part_number,
 			     data->vendor_info.revision,
 				   data->vendor_info.serial);
+		
 
+		//voltages
 		printf("\"VDD33_TX\": %01d.%04d,\n", (data->voltage.TX) / 10000, (data->voltage.TX) % 10000);
 		printf("\"VDD33_RX\": %01d.%04d,\n",    (data->voltage.RX) / 10000, (data->voltage.RX) % 10000);
 
@@ -123,7 +127,7 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 
 
 
-
+		//temperatures
 		int16_t temp_c[4];
 		uint16_t temp_mc[4];
 
@@ -137,21 +141,42 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 		printf("\"temp_RX1\": %3d.%03d,\n", temp_c[2], temp_mc[2]);
 		printf("\"temp_RX2\": %3d.%03d,\n", temp_c[3], temp_mc[3]);
 
-		/*
-		printf("\"temperatures\": ["
-				"\"TX1\": %3d.%03d, "
-				"\"TX2\": %3d.%03d, "
-				"\"RX1\": %3d.%03d, "
-				"\"RX2\": %3d.%03d"
-				"]\n",
-				temp_c[0], temp_mc[0],
-				temp_c[1], temp_mc[1],
-				temp_c[2], temp_mc[2],
-				temp_c[3], temp_mc[3]);
-		*/
 
 
+		//channel data
+		int i;
+		for (i = (I2C_TRANSCEIVER_CHANNEL_COUNT - 1); i >= 0; i--) {
+			if (i != 0) {
+				printf(",\n");
+			}
+			
+			printf("{\"channel\": %d,", i);
 
+			printf("{\"TX_enable_channel\": \"%s\",", 
+						fcgi_request_bit_to_bool(
+							i2c_transceiver_bit_get(
+								data->data_tx.enable_channel, i)));
+
+			printf("{\"TX_enable_output\": \"%s\",", 
+						fcgi_request_bit_to_bool(
+							i2c_transceiver_bit_get(
+								data->data_tx.enable_output, i)));
+
+			printf("{\"RX_enable_channel\": \"%s\",", 
+						fcgi_request_bit_to_bool(
+							i2c_transceiver_bit_get(
+								data->data_rx.enable_channel, i)));
+
+			printf("{\"RX_enable_output\": \"%s\",", 
+						fcgi_request_bit_to_bool(
+							i2c_transceiver_bit_get(
+								data->data_rx.enable_output, i)));
+
+			printf("{\"RX_LOS\": \"%s\"}" 
+						fcgi_request_bit_to_bool(
+							i2c_transceiver_bit_get(
+								data->data_rx.loss_of_signal, i)));
+		}
 
 
 

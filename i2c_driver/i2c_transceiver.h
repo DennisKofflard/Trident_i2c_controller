@@ -178,6 +178,23 @@ i2c_transceiver_init_timestamp_wait_max = {
 
 
 
+
+
+
+
+
+
+
+#define i2c_transceiver_bit_get(var,bitnum)   ((var >> bitnum) & 1)
+#define i2c_transceiver_bit_set(var,bitnum)   (var |=  (1 << bitnum))
+#define i2c_transceiver_bit_clear(var,bitnum) (var &= ~(1 << bitnum))
+
+
+
+
+
+
+
 int i2c_transceiver_init(i2c_dev *dev);
 int i2c_transceiver_init_memory(i2c_dev *dev);
 int i2c_transceiver_init_timestamp(i2c_dev *dev);

@@ -31,10 +31,6 @@
 #include "macros.h"
 
 
-#define i2c_transceiver_bit_get(var,bitnum)   ((var >> bitnum) & 1)
-#define i2c_transceiver_bit_set(var,bitnum)   (var |=  (1 << bitnum))
-#define i2c_transceiver_bit_clear(var,bitnum) (var &= ~(1 << bitnum))
-
 
 #define I2C_TRANSCEIVER_HIDE_TRIDENT1_EEPROM_CONFLICT_ERROR_MESSAGE
 
@@ -1143,16 +1139,6 @@ int i2c_transceiver_report_all(i2c_dev *dev) {
 
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

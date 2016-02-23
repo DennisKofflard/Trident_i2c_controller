@@ -145,8 +145,10 @@ int fcgi_request_next_part(char **url) {
 
 
 
-
-
+//converts a logical value to a string representation.
+char* fcgi_request_bit_to_bool(uint8_t bit) {
+	return (bit ? "true" : "false");
+}
 
 
 
