@@ -82,8 +82,19 @@ int fcgi_request_all_general(FCGX_Request *request) {
 
 int fcgi_request_transceivers(FCGX_Request *request) {
 	printf("\"transceivers\": [\n");
-		DO_AND_CHECK(fcgi_i2c_devices_call_on_type(transceiver, request, fcgi_request_transceiver_single));
-		printf("\n{\"filler\": null}\n");
+	
+		int i = 0;
+		i2c_dev *dev;
+
+		while (!(i2c_devices_dev_get(&dev, type, i))) {
+			if (i != 0) {
+				printf(",\n");
+			}
+			
+			DO_AND_CHECK(fcgi_request_transceiver_single(dev, request));
+			i++;
+		}
+
 	printf("\n]");
 
 	return 0;
