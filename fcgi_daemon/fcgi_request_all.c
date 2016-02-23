@@ -115,10 +115,8 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 			     data->vendor_info.revision,
 				   data->vendor_info.serial);
 
-		printf("\"voltages\": [");
-		printf("\"VDD33_TX\": %01d.%04d,", (data->voltage.TX) / 10000, (data->voltage.TX) % 10000);
-		printf("\"VDD33_RX\": %01d.%04d",    (data->voltage.RX) / 10000, (data->voltage.RX) % 10000);
-		printf("],\n");
+		printf("\"VDD33_TX\": %01d.%04d,\n", (data->voltage.TX) / 10000, (data->voltage.TX) % 10000);
+		printf("\"VDD33_RX\": %01d.%04d,\n",    (data->voltage.RX) / 10000, (data->voltage.RX) % 10000);
 
 
 
@@ -134,6 +132,12 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 		DO_AND_CHECK(i2c_transceiver_temperature_to_c_and_mc(data->temperature.RX1, &(temp_c[2]), &(temp_mc[2])));
 		DO_AND_CHECK(i2c_transceiver_temperature_to_c_and_mc(data->temperature.RX2, &(temp_c[3]), &(temp_mc[3])));
 
+		printf("\"temp_TX1\": %3d.%03d,\n", temp_c[0], temp_mc[0]);
+		printf("\"temp_TX2\": %3d.%03d,\n", temp_c[1], temp_mc[1]);
+		printf("\"temp_RX1\": %3d.%03d,\n", temp_c[2], temp_mc[2]);
+		printf("\"temp_RX2\": %3d.%03d,\n", temp_c[3], temp_mc[3]);
+
+		/*
 		printf("\"temperatures\": ["
 				"\"TX1\": %3d.%03d, "
 				"\"TX2\": %3d.%03d, "
@@ -144,6 +148,7 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 				temp_c[1], temp_mc[1],
 				temp_c[2], temp_mc[2],
 				temp_c[3], temp_mc[3]);
+		*/
 
 
 
