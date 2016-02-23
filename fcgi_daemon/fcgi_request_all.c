@@ -203,7 +203,7 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 
 	}
 
-	printf("\n},");
+	printf("\n}");
 
 	return 0;
 }
