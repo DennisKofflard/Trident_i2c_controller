@@ -81,7 +81,7 @@ int fcgi_request_all_general(FCGX_Request *request) {
 int fcgi_request_transceivers(FCGX_Request *request) {
 	printf("\"transceivers\": [\n");
 		DO_AND_CHECK(fcgi_i2c_devices_call_on_type(transceiver, request, fcgi_request_transceiver_single));
-		printf("{\"filler\": null}\n");
+		printf("\n{\"filler\": null}\n");
 	printf("\n]");
 
 	return 0;
@@ -112,7 +112,7 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 
 		
 		printf("\"VDD33_TX\": %01d.%04d,\n", (data->voltage.TX) / 10000, (data->voltage.TX) % 10000);
-		printf("\"VDD33_RX\": %01d.%04d,\n", (data->voltage.RX) / 10000, (data->voltage.RX) % 10000);
+		printf("\"VDD33_RX\": %01d.%04d",    (data->voltage.RX) / 10000, (data->voltage.RX) % 10000);
 	}
 
 	printf("\n},");
