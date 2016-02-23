@@ -86,7 +86,7 @@ int fcgi_request_transceivers(FCGX_Request *request) {
 		int i = 0;
 		i2c_dev *dev;
 
-		while (!(i2c_devices_dev_get(&dev, type, i))) {
+		while (!(i2c_devices_dev_get(&dev, transceiver, i))) {
 			if (i != 0) {
 				printf(",\n");
 			}
