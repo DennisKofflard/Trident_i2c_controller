@@ -52,7 +52,6 @@ int fcgi_request(FCGX_Request *request) {
 	fprintf(stderr, "uri received: %s\n", url);
 
 
-
 	return fcgi_request_dispatch(request, url);
 }
 
@@ -62,10 +61,12 @@ int fcgi_request(FCGX_Request *request) {
 int fcgi_request_dispatch(FCGX_Request *request, char *url) {
 	if (fcgi_request_strcmp(url, "debug")) {
 		//logging:
+		printf("Content-Type: text/plain\n\n");
 		fprintf(stderr, "Dispatching to /debug\n");
 		return fcgi_request_debug_dispatch(request, url);
 
 	} else if (fcgi_request_strcmp(url, "das")) {
+		printf("Content-Type: text/plain\n\n");
 		fprintf(stderr, "Dispatching to /das\n");
 		return fcgi_request_das_dispatch(request, url);
 
@@ -74,6 +75,7 @@ int fcgi_request_dispatch(FCGX_Request *request, char *url) {
 		return fcgi_request_all_dispatch(request, url);
 
 	} else if (fcgi_request_strcmp(url, "banaan")) {
+		printf("Content-Type: text/plain\n\n");
 		printf("banaan!\n");
 		return 0;
 
