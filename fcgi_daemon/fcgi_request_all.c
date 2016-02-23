@@ -57,6 +57,9 @@ int fcgi_request_all_dump(FCGX_Request *request) {
 		DO_AND_CHECK(fcgi_request_all_general(request));
 		printf(",\n");
 
+		DO_AND_CHECK(fcgi_i2c_das_dump_all(request));
+		printf(",\n");
+
 		DO_AND_CHECK(fcgi_request_transceivers(request));
 		
 	printf("\n}");
@@ -75,6 +78,19 @@ int fcgi_request_all_general(FCGX_Request *request) {
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
