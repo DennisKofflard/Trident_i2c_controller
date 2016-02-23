@@ -51,7 +51,7 @@ int fcgi_request_all_dispatch(FCGX_Request *request, char *url) {
 int fcgi_request_all_dump(FCGX_Request *request) {
 	//printf("/all/dump here.\n");
 
-	printf("Content-Type: application/json; charset=utf-8\n\n");
+	printf("Content-Type: application/json; charset=UTF-8\n\n");
 
 	printf("{\n");
 		DO_AND_CHECK(fcgi_request_all_general(request));
