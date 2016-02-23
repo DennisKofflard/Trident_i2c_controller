@@ -32,7 +32,7 @@ int fcgi_request_das_dispatch(FCGX_Request *request, char *url) {
 	FCGI_NEXT_PARAM();
 
 	if (fcgi_request_strcmp(url, "all")) {
-		return fcgi_das_all(request);
+		return fcgi_i2c_das_dump_all(request);
 
 	} else {
 		printf("command not found.\n");
@@ -40,11 +40,6 @@ int fcgi_request_das_dispatch(FCGX_Request *request, char *url) {
 	}
 }
 
-
-
-int fcgi_das_all(FCGX_Request *request) {
-	return fcgi_i2c_das_do_on_channels(request, fcgi_das_single_output);
-}
 
 
 
@@ -55,7 +50,10 @@ int fcgi_das_single_output(i2c_dev* dev, FCGX_Request *request, uint8_t channel)
 	i2c_das_channel_data *channel_data;
 	DO_AND_CHECK(i2c_das_get_channel_data(dev, channel, &channel_data));
 
-	printf("%s:%d\n", channel_data->name, channel_data->milivolts);
+	printf("\"%s\":%d.%03d", 
+			channel_data->name, 
+			(channel_data->milivolts / 1000), 
+			(channel_data->milivolts % 1000));
 
 	return 0;
 }
@@ -64,27 +62,50 @@ int fcgi_das_single_output(i2c_dev* dev, FCGX_Request *request, uint8_t channel)
 
 
 
-int fcgi_i2c_das_do_on_channels(FCGX_Request *request,
-																int (*func)(i2c_dev*, FCGX_Request*, uint8_t)) {
+int fcgi_i2c_das_dump_all(FCGX_Request *request);
 	int idev = 0;
 	i2c_dev *dev;
+	int first = 1;
 
-	while (!(i2c_devices_dev_get(&dev, das, idev))) {
-		assert(dev->type == das);
+	printf("\"voltages\": [\n");
 
-		i2c_das_data *data = ((i2c_das_data*) dev->data);
+		while (!(i2c_devices_dev_get(&dev, das, idev))) {
+			assert(dev->type == das);
 
-		int i;
-		for (i = 0; i < I2C_DAS_CHANNEL_COUNT; i++) {
-			i2c_das_channel_data *channel_data = data->channels + i;
-			if (channel_data->enabled) {
-				DO_AND_CHECK( (*func)(dev, request, i) );
+			i2c_das_data *data = ((i2c_das_data*) dev->data);
+
+			int i;
+			for (i = 0; i < I2C_DAS_CHANNEL_COUNT; i++) {
+				i2c_das_channel_data *channel_data = data->channels + i;
+				if (channel_data->enabled) {
+					if (!first) {
+						printf(",\n");
+					} else {
+						first = 0;
+					}
+
+					DO_AND_CHECK( fcgi_das_single_output(dev, request, i) );
+				}
 			}
+
+			idev++;
 		}
 
-		idev++;
+	if (!first) {
+		printf("\n");
 	}
+
+	printf("]\n");
 
 	return 0;
 }
+
+
+
+
+
+
+
+
+
 
