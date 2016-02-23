@@ -172,7 +172,7 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 							i2c_transceiver_bit_get(
 								data->data_rx.enable_output, i)));
 
-			printf("{\"RX_LOS\": \"%s\"}" 
+			printf("{\"RX_LOS\": \"%s\"}",
 						fcgi_request_bit_to_bool(
 							i2c_transceiver_bit_get(
 								data->data_rx.loss_of_signal, i)));
