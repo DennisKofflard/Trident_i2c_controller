@@ -115,7 +115,6 @@ int fcgi_request_transceiver_single(i2c_dev* dev, FCGX_Request *request) {
 		printf("\"VDD33_RX\": %01d.%04d,\n", (data->voltage.RX) / 10000, (data->voltage.RX) % 10000);
 	}
 
-	printf("\"filler\": null\n");
 	printf("\n},");
 
 	return 0;
