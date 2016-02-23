@@ -25,7 +25,7 @@
 
 void handle_request(FCGX_Request *request) {
 	//printf("Content-Type: text/plain\r\n\r\n");
-	printf("Content-Type: text/html\r\n\r\n");
+	//printf("Content-Type: text/html\r\n\r\n");
 
 
 	/*
