@@ -61,12 +61,32 @@ function process(data){
 					htxt += "</table>";
 
 					
+					htxt += "<h4>channels:</h4>";
 					htxt += "<table class='table table-bordered table-condensed table-striped'>";
-						$.each(value.channels, function(index_n, value_n) {
-							console.log(index_n);
-							console.log(value_n);
+						tmp_ch="<tr><td>channel number</td>";
+						tmp_te="<tr><td>tx enable channel</td>";
+						tmp_to="<tr><td>tx enable output</td>";
+						tmp_re="<tr><td>rx enable channel</td>";
+						tmp_ro="<tr><td>rx enable output</td>";
+						tmp_lo="<tr><td>loss of signal</td>";
 
+						$.each(value.channels, function(index_n, value_n) {
+							tmp_ch+="<td>" + value_n.channel + "</td>";
+							tmp_te+="<td>" + value_n.TX_enable_channel + "</td>";
+							tmp_to+="<td>" + value_n.TX_enable_output + "</td>";
+							tmp_re+="<td>" + value_n.RX_enable_channel + "</td>";
+							tmp_ro+="<td>" + value_n.RX_enable_output + "</td>";
+							tmp_lo+="<td>" + value_n.RX_LOS + "</td>";
 						});						
+						
+						tmp_ch+="</tr>";
+						tmp_te+="</tr>";
+						tmp_to+="</tr>";
+						tmp_re+="</tr>";
+						tmp_ro+="</tr>";
+						tmp_lo+="</tr>";
+						htxt += tmp_ch + tmp_te + tmp_to + tmp_re + tmp_ro + tmp_lo;
+
 					htxt += "</table>";
 
 					htxt += "</div>";
