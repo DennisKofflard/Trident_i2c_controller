@@ -3,18 +3,30 @@
 
 
 function doPoll(){
-	//$.post('http://qa3mmc3.ele.tue.nl/all/dump')
-	$.get('http://qa3mmc3.ele.tue.nl/all/dump')
+	//$.get('http://qa3mmc3.ele.tue.nl/all/dump')
+	host=$("#host").val();
+	$.get(host)
 		.done(function(data) {
 			process(data);  // process results here
 		})
+		.fail(function() {
+			$("#dyndata").html("<h4 class='col-md-12'>could not get data from \"" + host + "\"</h2>");
+		})
 		.always(function() {
-			//setTimeout(doPoll,5000);
+			setTimeout(doPoll,1000);
 		})
 }
 
+function bool_to_color(booly) {
+	if(booly) {
+		return "success";
+	} else {
+		return "danger";
+	}
+}
+
 function process(data){
-	console.log(data);
+	//console.log(data);
 	
 	if(data) {
 		//blindly assuming this is the right data. Only acceptable for a demo.
@@ -28,7 +40,7 @@ function process(data){
 
 		//voltages
 		if(data.voltages) {
-			htxt += "<div class='col-md-3'>";
+			htxt += "<div class='col-xs-6 col-sm-3 col-md-3 col-lg-2'>";
 				htxt += "<h3>Board voltages:</h3>";
 				htxt += "<table class='table table-bordered table-condensed table-striped'>";
 					$.each(data.voltages, function(index, value) {
@@ -48,16 +60,16 @@ function process(data){
 
 			$.each(data.transceivers, function(index, value) {
 				if(value.connected && value.ready) {
-					htxt += "<div class='col-md-6'>";
+					htxt += "<div class='col-xs-12 col-sm-9 col-md-8 col-lg-6'>";
 					htxt += "<h3>Transceiver " + index + ": </h3>";
 
 					htxt += "<table class='table table-bordered table-condensed table-striped'>";
-						htxt += "<tr><td>VDD33_TX </td><td>" + value.VDD33_TX + "</td></tr>";
-						htxt += "<tr><td>VDD33_RX </td><td>" + value.VDD33_RX + "</td></tr>";
-						htxt += "<tr><td>temp_tx1 </td><td>" + value.temp_TX1 + "</td></tr>";
-						htxt += "<tr><td>temp_tx2 </td><td>" + value.temp_TX2 + "</td></tr>";
-						htxt += "<tr><td>temp_rx1 </td><td>" + value.temp_RX1 + "</td></tr>";
-						htxt += "<tr><td>temp_rx2 </td><td>" + value.temp_RX2 + "</td></tr>";
+						htxt += "<tr><td>VDD33_TX </td><td>" + value.VDD33_TX + "V</td></tr>";
+						htxt += "<tr><td>VDD33_RX </td><td>" + value.VDD33_RX + "V</td></tr>";
+						htxt += "<tr><td>temp_tx1 </td><td>" + value.temp_TX1 + "C</td></tr>";
+						htxt += "<tr><td>temp_tx2 </td><td>" + value.temp_TX2 + "C</td></tr>";
+						htxt += "<tr><td>temp_rx1 </td><td>" + value.temp_RX1 + "C</td></tr>";
+						htxt += "<tr><td>temp_rx2 </td><td>" + value.temp_RX2 + "C</td></tr>";
 					htxt += "</table>";
 
 					
@@ -71,12 +83,12 @@ function process(data){
 						tmp_lo="<tr><td>loss of signal</td>";
 
 						$.each(value.channels, function(index_n, value_n) {
-							tmp_ch+="<td>" + value_n.channel + "</td>";
-							tmp_te+="<td>" + value_n.TX_enable_channel + "</td>";
-							tmp_to+="<td>" + value_n.TX_enable_output + "</td>";
-							tmp_re+="<td>" + value_n.RX_enable_channel + "</td>";
-							tmp_ro+="<td>" + value_n.RX_enable_output + "</td>";
-							tmp_lo+="<td>" + value_n.RX_LOS + "</td>";
+							tmp_ch+="<td style='min-width:30px'>"        +               value_n.channel            +   "</td>";
+							tmp_te+="<td style='min-width:30px' class='" + bool_to_color(value_n.TX_enable_channel) + "'></td>";
+							tmp_to+="<td style='min-width:30px' class='" + bool_to_color(value_n.TX_enable_output)  + "'></td>";
+							tmp_re+="<td style='min-width:30px' class='" + bool_to_color(value_n.RX_enable_channel) + "'></td>";
+							tmp_ro+="<td style='min-width:30px' class='" + bool_to_color(value_n.RX_enable_output)  + "'></td>";
+							tmp_lo+="<td style='min-width:30px' class='" + bool_to_color(value_n.RX_LOS)            + "'></td>";
 						});						
 						
 						tmp_ch+="</tr>";
