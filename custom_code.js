@@ -64,12 +64,18 @@ function process(data){
 					htxt += "<h3>Transceiver " + index + ": </h3>";
 
 					htxt += "<table class='table table-bordered table-condensed table-striped'>";
-						htxt += "<tr><td>VDD33_TX </td><td>" + value.VDD33_TX + "V</td></tr>";
-						htxt += "<tr><td>VDD33_RX </td><td>" + value.VDD33_RX + "V</td></tr>";
-						htxt += "<tr><td>temp_tx1 </td><td>" + value.temp_TX1 + "C</td></tr>";
-						htxt += "<tr><td>temp_tx2 </td><td>" + value.temp_TX2 + "C</td></tr>";
-						htxt += "<tr><td>temp_rx1 </td><td>" + value.temp_RX1 + "C</td></tr>";
-						htxt += "<tr><td>temp_rx2 </td><td>" + value.temp_RX2 + "C</td></tr>";
+						htxt += "<tr><td>VDD33_TX </td><td>" + value.VDD33_TX + "V</td>";
+							htxt += "<td colspan='2'>Vendor information:</td></tr>";
+						htxt += "<tr><td>VDD33_RX </td><td>" + value.VDD33_RX + "V</td>";
+							htxt += "<td>name</td><td>"     + value.vendor_info.name     + "</td></tr>";
+						htxt += "<tr><td>temp_tx1 </td><td>" + value.temp_TX1 + "C</td>";
+							htxt += "<td>OUI</td><td>"      + value.vendor_info.OUI      + "</td></tr>";
+						htxt += "<tr><td>temp_tx2 </td><td>" + value.temp_TX2 + "C</td>";
+							htxt += "<td>part</td><td>"     + value.vendor_info.part     + "</td></tr>";
+						htxt += "<tr><td>temp_rx1 </td><td>" + value.temp_RX1 + "C</td>";
+							htxt += "<td>revision</td><td>" + value.vendor_info.revision + "</td></tr>";
+						htxt += "<tr><td>temp_rx2 </td><td>" + value.temp_RX2 + "C</td>";
+							htxt += "<td>serial</td><td>"   + value.vendor_info.serial   + "</td></tr>";
 					htxt += "</table>";
 
 					
