@@ -86,7 +86,7 @@ function process(data){
 						tmp_to="<tr><td>tx enable output</td>";
 						tmp_re="<tr><td>rx enable channel</td>";
 						tmp_ro="<tr><td>rx enable output</td>";
-						tmp_lo="<tr><td>loss of signal</td>";
+						tmp_lo="<tr><td>loss of signal (green=ok)</td>";
 
 						$.each(value.channels, function(index_n, value_n) {
 							tmp_ch+="<td style='min-width:30px'>"        +               value_n.channel            +   "</td>";
@@ -94,7 +94,7 @@ function process(data){
 							tmp_to+="<td style='min-width:30px' class='" + bool_to_color(value_n.TX_enable_output)  + "'></td>";
 							tmp_re+="<td style='min-width:30px' class='" + bool_to_color(value_n.RX_enable_channel) + "'></td>";
 							tmp_ro+="<td style='min-width:30px' class='" + bool_to_color(value_n.RX_enable_output)  + "'></td>";
-							tmp_lo+="<td style='min-width:30px' class='" + bool_to_color(value_n.RX_LOS)            + "'></td>";
+							tmp_lo+="<td style='min-width:30px' class='" + bool_to_color(!(value_n.RX_LOS))         + "'></td>";
 						});						
 						
 						tmp_ch+="</tr>";
