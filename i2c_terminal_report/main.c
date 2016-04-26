@@ -316,11 +316,6 @@ int main(int argc, char* argv[]) {
 	i2c_dev *dev;
 	if (i2c_devices_dev_get(&dev, transceiver, 0) ||
 			i2c_transceiver_enable_all(dev, 1) ||
-			i2c_transceiver_tx_enable_channel(dev, 4, 0) ||
-			i2c_transceiver_tx_enable_output( dev, 5, 0) ||
-			i2c_transceiver_rx_enable_channel(dev, 2, 0) ||
-			i2c_transceiver_rx_enable_channel(dev, 3, 1) ||
-			i2c_transceiver_rx_enable_channel(dev, 8, 0) ||
 			i2c_transceiver_poll_enable(dev) ) {
 		fprintf(stderr, "transceiver setting settings failed.\n");
 	}
